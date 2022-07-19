@@ -1,3 +1,6 @@
+# TenderLoveCare DAO <img src="https://chuongtang.github.io/sourceStore/logos/TlcDAO.png" alt="DAO logo" title="tlcDAO logo" height="30" />
+a DAO for Tender-Loving-Care people that receive $❤TLC whenever they do nice things or being kind to others.
+
 ## Getting Started
 
 Create a project using this example:
