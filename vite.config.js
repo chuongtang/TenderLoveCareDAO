@@ -1,8 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import WindiCSS from 'vite-plugin-windicss'
 
 const defaultConfig = {
-  plugins: [react()],
+  plugins: [react(), WindiCSS()],
 };
 
 // https://vitejs.dev/config/
