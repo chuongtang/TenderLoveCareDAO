@@ -1,8 +1,9 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import ethers from "ethers";
-// import dotenv from "dotenv";
-// dotenv.config();
-import {} from "dotenv/config";
+// import ethers from "ethers";
+import { ethers } from "ethers";
+import dotenv from "dotenv";
+dotenv.config();
+// import {} from "dotenv/config";
 // Some quick checks to make sure our .env is working.
 if (!process.env.PRIVATE_KEY || process.env.PRIVATE_KEY === "") {
   console.log("🛑 Private key not found.");
@@ -19,7 +20,7 @@ if (!process.env.WALLET_ADDRESS || process.env.WALLET_ADDRESS === "") {
 //  The JSON-RPC API is a popular method for interacting with Ethereum
 // ⬇ https://docs.ethers.io/v5/api/providers/jsonrpc-provider/
 const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
-const wallet = new ethers.Wallet(process.env.PRIVATE_KEY as string, provider);
+const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 const sdk = new ThirdwebSDK(wallet);
 
 (async () => {
