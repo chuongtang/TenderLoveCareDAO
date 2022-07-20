@@ -1,6 +1,8 @@
 # TenderLovingCare DAO <img src="https://chuongtang.github.io/sourceStore/logos/TlcDAO.png" alt="DAO logo" title="tlcDAO logo" height="40" />
 a DAO for Tender-Loving-Care people that receive $❤**TLC** whenever they do nice things or being kind to others.
 
+**Code for**[deployed Solidity Smart Contract](http://https://rinkeby.etherscan.io/address/0x416854ac3f4dc17377d252cebfab89f55b75e9f8#code.com)
+
 ## Getting Started
 
 Create a project using this example:
