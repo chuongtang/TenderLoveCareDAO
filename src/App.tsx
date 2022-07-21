@@ -6,16 +6,17 @@ const App: React.FC = () => {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
   const disconnectWallet = useDisconnect();
-  const [message, setMessage]= useState <string>('');
+  const [message, setMessage] = useState<string>('');
 
   // Initialize our editionDrop contract
-  const editionDrop = useEditionDrop("0x8F80997bd6267AF97E5B84721F3022736E977720");
+  const editionDrop = useEditionDrop("0x3056C9eb1E4633AB779b16a117A64B8181f8a01B");
   // State variable for us to know if user has our NFT.
-  const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
+  const [hasClaimedNFT, setHasClaimedNFT] = useState<boolean>(false);
+  const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
   useEffect(() => {
 
-    const checkBalance = async () => {
+    const checkBalance = async (): Promise<void> => {
       try {
         //  query the smart contract to check if the user has our NFT.
         const balance = await editionDrop?.balanceOf(address as string, 0);
@@ -23,7 +24,7 @@ const App: React.FC = () => {
         // "0" is the tokenId ⬇ of our membership NFT
         if (balance?.gt(0)) {
           setHasClaimedNFT(true);
-          console.log('\x1b[35m%s\x1b[0m',"🌟 this user has a membership NFT!");
+          console.log('\x1b[35m%s\x1b[0m', "🌟 this user has a membership NFT!");
           setMessage('You are an NFT holder for TlcDAO ❤')
         } else {
           setHasClaimedNFT(false);
@@ -35,11 +36,27 @@ const App: React.FC = () => {
         console.error("Failed to get balance", error);
       }
     };
-    address ? checkBalance() : setMessage("Metamask Wallet is NOT connected to this app") ;
+    address ? checkBalance() : setMessage("Metamask Wallet is NOT connected to this app");
   }, [address, editionDrop]);
 
+  const mintNft = async (): Promise<void> => {
+    try {
+      setIsClaiming(true);
+      await editionDrop?.claim("0", 1);
+      console.log('\x1b[32m%s\x1b[0m', `🌊 Successfully Minted!`);
+      setHasClaimedNFT(true);
+      setMessage(`✨ Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${editionDrop?.getAddress()}/0`)
+    } catch (error) {
+      setHasClaimedNFT(false);
+      console.error("Failed to mint NFT", error);
+      setMessage('❌ Error when minting NFT')
+    } finally {
+      setIsClaiming(false);
+    }
+  };
+
   return (
-    <div>
+    <div className="p-3">
       <nav className="flex items-center justify-between p-4 mx-auto">
         <a
           className="inline-flex items-center justify-center h-10 rounded-lg"
@@ -82,9 +99,9 @@ const App: React.FC = () => {
                 className="ml-1.5 w-4 h-4"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                 ></path>
               </svg>
@@ -92,7 +109,20 @@ const App: React.FC = () => {
           </li>
         </ul>
       </nav>
-            {message && <h1>{message}</h1>}
+      {message && <h1>{message}</h1>}
+      {!hasClaimedNFT && address &&
+        <>
+          <h1>Mint your free 🧡TlcDAO Membership NFT</h1>
+          <button
+            disabled={isClaiming}
+            onClick={mintNft}
+            className="m-4 inline-block p-3 text-sm font-medium text-gray-100 transition bg-gradient-to-r from-green-500 to-yellow-500 rounded-lg hover:transition hover:shadow-xl active:bg-indigo-500 focus:outline-none focus:ring"
+          >
+            {isClaiming ? "Minting..." : "Mint your nft (FREE)"}
+          </button>
+        </>
+      }
+
     </div>
   );
 }
