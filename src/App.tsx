@@ -40,9 +40,9 @@ const App: React.FC = () => {
   }, [address, editionDrop]);
 
   const mintNft = async (): Promise<void> => {
+    setIsClaiming(true);
     try {
-      setIsClaiming(true);
-      await editionDrop?.claim("0", 1);
+      await editionDrop?.claim(0, 1);
       console.log('\x1b[32m%s\x1b[0m', `🌊 Successfully Minted!`);
       setHasClaimedNFT(true);
       setMessage(`✨ Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${editionDrop?.getAddress()}/0`)
