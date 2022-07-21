@@ -43,10 +43,11 @@ const App: React.FC = () => {
   const mintNft = async (): Promise<void> => {
     setIsClaiming(true);
     try {
+      setMessage(`Minting your 💚TLC NFT...`)
       await editionDrop?.claim(0, 1);
       console.log('\x1b[32m%s\x1b[0m', `🌊 Successfully Minted!`);
       setHasClaimedNFT(true);
-      setMessage(`✨ Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${editionDrop?.getAddress()}/0`)
+      setMessage(`You are a 💚TLC NFT holder now 🎉`)
     } catch (error) {
       setHasClaimedNFT(false);
       console.error("Failed to mint NFT", error);
@@ -113,7 +114,7 @@ const App: React.FC = () => {
         
       </nav>
      <>
-      {message && <h1 className="mb-4">{message}</h1>}
+      {message && <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-500">{message}</h1>}
       {hasClaimedNFT && address &&
           <a 
            className="inline-block p-[2px] rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:text-white active:text-opacity-75 focus:outline-none focus:ring"
@@ -127,7 +128,7 @@ const App: React.FC = () => {
         }
       {!hasClaimedNFT && address &&
         <>
-          <h1>Mint your free 🧡TlcDAO Membership NFT</h1>
+          <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-blue-500">Mint your free 🧡TlcDAO Membership NFT</h1>
           <button
             disabled={isClaiming}
             onClick={mintNft}

@@ -26,3 +26,29 @@ SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
 (node:20020) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
 ✅ Successfully set claim condition!
+
+
+** Output on Node scripts/5-deploy-token.js
+SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F(node:10916) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ Successfully deployed token module, address: 0xdd899bC1C811CDB913D94c091b8F56339Fd69afa
+
+** Output on Node scripts/6-print-money.js
+SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
+(node:9244) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any 
+time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ There now is 1000000.0 $💚TLC in circulation
+
+** Output on Node scripts/7-airdrop-token.js
+SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
+(node:6804) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any 
+time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ Going to airdrop 2701 tokens to 0xD42D01ac21FAdbbE050CDf8D80657B98f79a2C0d
+✅ Going to airdrop 1198 tokens to 0x9C3BfCD131733c9A2e09B7448087a1ecECC6e136
+✅ Going to airdrop 8097 tokens to 0xeA4aBa3078f4A008e22634f0cd897D44093F047E
+✅ Going to airdrop 2781 tokens to 0x348Ed47C0a707A3A342E40f57699A86F9d12f124
+✅ Going to airdrop 7125 tokens to 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
+🌈 Starting airdrop...
+✅ Successfully airdropped tokens to all the holders of the NFT!
