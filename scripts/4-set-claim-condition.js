@@ -1,7 +1,7 @@
 import sdk from "./1-initialize-sdk.js";
 import { MaxUint256 } from "@ethersproject/constants";
 
-const editionDrop = sdk.getEditionDrop("0x3056C9eb1E4633AB779b16a117A64B8181f8a01B");
+const editionDrop = sdk.getEditionDrop("0x893D52CBE48E6A4a4BB4157b64648364e38A7d96");
 
 //  https://portal.thirdweb.com/typescript/sdk.editiondrop.claimconditions
 

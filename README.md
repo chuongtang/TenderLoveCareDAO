@@ -1,7 +1,7 @@
 # TenderLovingCare DAO <img src="https://chuongtang.github.io/sourceStore/logos/TlcDAO.png" alt="DAO logo" title="tlcDAO logo" height="40" />
 a DAO for Tender-Loving-Care people that receive $❤**TLC** whenever they do nice things or being kind to others.
 
-**Code for** ➡ [deployed Solidity Smart Contract](https://rinkeby.etherscan.io/address/0x3056C9eb1E4633AB779b16a117A64B8181f8a01B#code.com)
+**Code for** ➡ [deployed Solidity Smart Contract](https://rinkeby.etherscan.io/address/0x893D52CBE48E6A4a4BB4157b64648364e38A7d96#code.com)
 
 ## Getting Started
 

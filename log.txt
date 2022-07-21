@@ -1,13 +1,28 @@
-First output on Node run:
-SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F(node:21900) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
+** Output on Node 2-deploy-drop.js:
+SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
+(node:21900) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
-✅ Successfully deployed editionDrop contract, address: 0x3056C9eb1E4633AB779b16a117A64B8181f8a01B
+✅ Successfully deployed editionDrop contract, address: 0x893D52CBE48E6A4a4BB4157b64648364e38A7d96
 ✅ editionDrop metadata: {
   name: 'Tender_Love_Care_DAO Membership',
-  description: 'A DAO for Tender Loving Care people.',
+  description: "A DAO for Tender Loving Care people. Let's be kind and do nice things",
   image: 'https://gateway.ipfscdn.io/ipfs/QmNyyMKd5ePDy9vhyR1sczNwe6pw5n9TMUys5UJjpphCTo/0',
   seller_fee_basis_points: 0,
   fee_recipient: '0x0000000000000000000000000000000000000000',
   merkle: {},
   symbol: '❤TLC'
 }
+
+
+** Output on Node 3-config-nft.js:
+SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
+(node:5392) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ Successfully created a new NFT in the drop!
+
+
+** Output on Node 4-set-claim-condition.js:
+SDK initialized by address: %s 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
+(node:20020) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ Successfully set claim condition!

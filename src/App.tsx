@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const [message, setMessage] = useState<string>('');
 
   // Initialize our editionDrop contract
-  const editionDrop = useEditionDrop("0x3056C9eb1E4633AB779b16a117A64B8181f8a01B");
+  const editionDrop = useEditionDrop("0x893D52CBE48E6A4a4BB4157b64648364e38A7d96");
   // State variable for us to know if user has our NFT.
   const [hasClaimedNFT, setHasClaimedNFT] = useState<boolean>(false);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
@@ -118,7 +118,14 @@ const App: React.FC = () => {
             onClick={mintNft}
             className="m-4 inline-block p-3 text-sm font-medium text-gray-100 transition bg-gradient-to-r from-green-500 to-yellow-500 rounded-lg hover:transition hover:shadow-xl active:bg-indigo-500 focus:outline-none focus:ring"
           >
-            {isClaiming ? "Minting..." : "Mint your nft (FREE)"}
+            {isClaiming ? 
+            <div className="flex items-center justify-center">
+                <span>Minting...</span>
+              <div className="spinner-border animate-spin inline-block w-12 h-8 border-4 rounded-full" role="status">
+                🔆
+              </div>
+            </div> 
+            : "Mint your NFT (FREE)"}
           </button>
         </>
       }
