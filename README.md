@@ -3,6 +3,8 @@ a DAO for Tender-Loving-Care people that receive $❤**TLC** whenever they do ni
 
 **Code for** ➡ [deployed Solidity Smart Contract](https://rinkeby.etherscan.io/address/0x893D52CBE48E6A4a4BB4157b64648364e38A7d96#code.com)
 
+**ERC-20 Governance Token Address** : 0xdd899bC1C811CDB913D94c091b8F56339Fd69afa
+
 ## Getting Started
 
 Create a project using this example:
