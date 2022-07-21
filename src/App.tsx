@@ -1,26 +1,33 @@
-import { useAddress, useDisconnect, useMetamask, useEditionDrop } from '@thirdweb-dev/react';
-import { useState, useEffect } from 'react';
+import { useAddress, useDisconnect, useMetamask, useEditionDrop, useToken } from '@thirdweb-dev/react';
+import { useState, useEffect, useMemo } from 'react';
 import AppLogo from '../src/assets/DAOlogo3.svg'
+import MemberList from './MemberList';
 
 const App: React.FC = () => {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
   const disconnectWallet = useDisconnect();
   const [message, setMessage] = useState<string>('');
-  const deployedContract = "0x893D52CBE48E6A4a4BB4157b64648364e38A7d96"
+  const deployedContract = "0x893D52CBE48E6A4a4BB4157b64648364e38A7d96";
+  const deployedToken = "0xdd899bC1C811CDB913D94c091b8F56339Fd69afa"
 
   // Initialize our editionDrop contract
-  const editionDrop = useEditionDrop(deployedContract);
+  const editionDrop = useEditionDrop(deployedContract)!;
+  // Initialize our token contract
+  const token = useToken(deployedToken)!;
   // State variable for us to know if user has our NFT.
   const [hasClaimedNFT, setHasClaimedNFT] = useState<boolean>(false);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
+  const [memberTokenAmounts, setMemberTokenAmounts] = useState<Array<any>>([]);
+  const [memberAddresses, setMemberAddresses] = useState<Array<string>>([]);
+
+ 
 
   useEffect(() => {
-
     const checkBalance = async (): Promise<void> => {
       try {
         //  query the smart contract to check if the user has our NFT.
-        const balance = await editionDrop?.balanceOf(address as string, 0);
+        const balance = await editionDrop.balanceOf(address as string, 0);
 
         // "0" is the tokenId ⬇ of our membership NFT
         if (balance?.gt(0)) {
@@ -44,7 +51,7 @@ const App: React.FC = () => {
     setIsClaiming(true);
     try {
       setMessage(`Minting your 💚TLC NFT...`)
-      await editionDrop?.claim(0, 1);
+      await editionDrop.claim(0, 1);
       console.log('\x1b[32m%s\x1b[0m', `🌊 Successfully Minted!`);
       setHasClaimedNFT(true);
       setMessage(`You are a 💚TLC NFT holder now 🎉`)
@@ -57,7 +64,65 @@ const App: React.FC = () => {
     }
   };
 
+  // ⬇ Grabs all the addresses of our members holding our NFT.
+  useEffect(() => {
+    if (!hasClaimedNFT) {
+      return;
+    }
+    const getAllAddresses = async () => {
+      try {
+        const memberAddresses = await editionDrop.history.getAllClaimerAddresses(0);
+        setMemberAddresses(memberAddresses);
+        console.log('\x1b[34m%s\x1b[0m',"🚀 Members addresses", memberAddresses);
+      } catch (error) {
+        console.error('\x1b[31m%s\x1b[0m',"failed to get member list", error);
+      }
 
+    };
+    getAllAddresses();
+  }, [hasClaimedNFT, editionDrop.history]);
+
+  // ⬇ Grabs the # of token each member holds.
+  useEffect(() => {
+    if (!hasClaimedNFT) {
+      return;
+    }
+
+    const getAllBalances = async () => {
+      try {
+        const amounts = await token.history.getAllHolderBalances();
+        setMemberTokenAmounts(amounts);
+        console.log('\x1b[32m%s\x1b[0m',"👜 Amounts", amounts);
+      } catch (error) {
+        console.error('\x1b[31m%s\x1b[0m',"failed to get member balances", error);
+      }
+    };
+    getAllBalances();
+  }, [hasClaimedNFT, token.history]);
+
+
+
+  // Now, we combine the memberAddresses and memberTokenAmounts into a single array
+
+//   interface memberList {
+//     address: string;
+//     tokenAmount: number;
+// }
+
+  const memberList = useMemo(() => {
+    return memberAddresses.map((address) => {
+      // We're checking if we are finding the address in the memberTokenAmounts array.
+      // If we are, we'll return the amount of token the user has.
+      // Otherwise, return 0.
+      const member = memberTokenAmounts?.find(({ holder }) => holder === address);
+
+      return {
+        address,
+        tokenAmount: member?.balance.displayValue || 0,
+      }
+    });
+  }, [memberAddresses, memberTokenAmounts]);
+  console.log(memberList)
   return (
     <div className="p-3">
       <nav className="flex items-center justify-between p-4 mx-auto">
@@ -73,7 +138,7 @@ const App: React.FC = () => {
               <strong className="inline-flex items-center border border-gray-200 rounded relative px-2.5 py-1.5 text-xs font-medium m-4">
                 <span className="animate-ping w-2.5 h-2.5 bg-green-600/75 rounded-full absolute -top-1 -left-1"></span>
                 <span className="w-2.5 h-2.5 bg-green-600 rounded-full absolute -top-1 -left-1"></span>
-                <span className="text-gray-700"> Connected to your Wallet @: </span>
+                <span className="text-gray-700"> Connected to: </span>
                 <span className="text-green-700 ml-1.5">
                   {address}
                 </span>
@@ -85,7 +150,7 @@ const App: React.FC = () => {
               Connect with Metamask
             </button>
           )}
-          
+
           <li>
             <a
               className="inline-flex items-center px-3 py-2 rounded-lg"
@@ -109,43 +174,45 @@ const App: React.FC = () => {
               </svg>
             </a>
           </li>
-          
+
         </ul>
-        
+
       </nav>
-     <>
-      {message && <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-500">{message}</h1>}
-      {hasClaimedNFT && address &&
-          <a 
-           className="inline-block p-[2px] rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:text-white active:text-opacity-75 focus:outline-none focus:ring"
-           href={`https://testnets.opensea.io/assets/${deployedContract}/0`} 
-           target='_blank'
-           >
+      <>
+        {message && <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-500">{message}</h1>}
+        {hasClaimedNFT && address &&
+          <a
+            className="inline-block p-[2px] rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:text-white active:text-opacity-75 focus:outline-none focus:ring"
+            href={`https://testnets.opensea.io/assets/${deployedContract}/0`}
+            target='_blank'
+          >
             <span className="block p-2 text-sm font-medium bg-white rounded-lg hover:bg-transparent">
               View your NFT
             </span>
           </a>
         }
-      {!hasClaimedNFT && address &&
-        <>
-          <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-blue-500">Mint your free 🧡TlcDAO Membership NFT</h1>
-          <button
-            disabled={isClaiming}
-            onClick={mintNft}
-            className="m-4 inline-block p-3 text-sm font-medium text-gray-100 transition bg-gradient-to-r from-green-500 to-yellow-500 rounded-lg hover:transition hover:shadow-xl active:bg-indigo-500 focus:outline-none focus:ring"
-          >
-            {isClaiming ?
-              <div className="flex items-center justify-center">
-                <span className="animate-bounce">Minting...</span>
-                <div className="spinner-border animate-spin inline-block w-12 h-8 border-4 rounded-full" role="status">
-                  🔆
+        {!hasClaimedNFT && address &&
+          <>
+            <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-blue-500">Mint your free 🧡TlcDAO Membership NFT</h1>
+            <button
+              disabled={isClaiming}
+              onClick={mintNft}
+              className="m-4 inline-block p-3 text-sm font-medium text-gray-100 transition bg-gradient-to-r from-green-500 to-yellow-500 rounded-lg hover:transition hover:shadow-xl active:bg-indigo-500 focus:outline-none focus:ring"
+            >
+              {isClaiming ?
+                <div className="flex items-center justify-center">
+                  <span className="animate-bounce">Minting...</span>
+                  <div className="spinner-border animate-spin inline-block w-12 h-8 border-4 rounded-full" role="status">
+                    🔆
+                  </div>
                 </div>
-              </div>
-              : "Mint your NFT (FREE)"}
-          </button>
-        </>
-      }
+                : "Mint your NFT (FREE)"}
+            </button>
+          </>
+        }
       </>
+      {memberList && <MemberList memberList={memberList} /> }
+      
     </div>
   );
 }

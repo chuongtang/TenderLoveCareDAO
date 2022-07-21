@@ -5,6 +5,8 @@ a DAO for Tender-Loving-Care people that receive $❤**TLC** whenever they do ni
 
 **ERC-20 Governance Token Address** : 0xdd899bC1C811CDB913D94c091b8F56339Fd69afa
 
+Built with [Thirdweb](https://portal.thirdweb.com/typescript/sdk.thirdwebsdk) and [Buildspace](https://buildspace.so/p/build-dao-with-javascript)
+
 ## Getting Started
 
 Create a project using this example:
