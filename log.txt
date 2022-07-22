@@ -52,3 +52,6 @@ time
 ✅ Going to airdrop 7125 tokens to 0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F
 🌈 Starting airdrop...
 ✅ Successfully airdropped tokens to all the holders of the NFT!
+
+** Output on Node scripts/8-deploy-vote.js
+✅ Successfully deployed vote contract, address: 0x9393fb107aA2BD1BAe191E82422BC2Fc519fB728
