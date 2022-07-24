@@ -55,3 +55,15 @@ time
 
 ** Output on Node scripts/8-deploy-vote.js
 ✅ Successfully deployed vote contract, address: 0x9393fb107aA2BD1BAe191E82422BC2Fc519fB728
+
+** Output on Node scripts/9-setup-vote.js
+Successfully gave vote contract permissions to act on token contract
+✅ Successfully transferred 788178.3999999999 tokens to vote contract
+
+** Output on Node scripts/10-create-vote-proposals.js
+✅ Successfully created proposal to mint tokens
+✅ Successfully created proposal to reward ourselves from the treasury, let's hope people vote for it!
+
+
+
+
