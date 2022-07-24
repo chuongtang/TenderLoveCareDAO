@@ -2,9 +2,10 @@ import { useAddress, useDisconnect, useMetamask, useEditionDrop, useToken } from
 import { useState, useEffect, useMemo } from 'react';
 import AppLogo from '../src/assets/DAOlogo3.svg'
 import MemberList from './MemberList';
+import MemberVote from './MemberVote';
 
 const App: React.FC = () => {
-  const address = useAddress();
+  const address = useAddress()!;
   const connectWithMetamask = useMetamask();
   const disconnectWallet = useDisconnect();
   const [message, setMessage] = useState<string>('');
@@ -99,15 +100,6 @@ const App: React.FC = () => {
     };
     getAllBalances();
   }, [hasClaimedNFT, token.history]);
-
-
-
-  // Now, we combine the memberAddresses and memberTokenAmounts into a single array
-
-//   interface memberList {
-//     address: string;
-//     tokenAmount: number;
-// }
 
   const memberList = useMemo(() => {
     return memberAddresses.map((address) => {
@@ -211,7 +203,8 @@ const App: React.FC = () => {
           </>
         }
       </>
-      {memberList && <MemberList memberList={memberList} /> }
+      {memberList && address && <MemberList memberList={memberList} /> }
+      <MemberVote deployedContract={deployedContract} deployedToken={deployedToken} hasClaimedNFT={hasClaimedNFT} address={address} />
       
     </div>
   );
