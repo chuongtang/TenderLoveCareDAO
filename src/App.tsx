@@ -4,6 +4,7 @@ import AppLogo from '../src/assets/DAOlogo3.svg'
 import MemberList from './components/MemberList';
 import MemberVote from './components/MemberVote';
 import Navbar from './components/Navbar';
+import IntroPage from './components/IntroPage';
 
 const App: React.FC = () => {
   const address: string = useAddress()!;
@@ -117,9 +118,10 @@ const App: React.FC = () => {
   }, [memberAddresses, memberTokenAmounts]);
 
   return (
-    <div className="p-3">
+    <div className="p-3 m-1">
       <Navbar address={address} disconnectWallet={disconnectWallet} connectWithMetamask={connectWithMetamask} />
-      <nav className="flex items-center justify-between p-4 mx-auto">
+      <IntroPage />
+      {/* <nav className="flex items-center justify-between p-4 mx-auto">
         <a
           className="inline-flex items-center justify-center h-10 rounded-lg"
           href="/"
@@ -171,7 +173,7 @@ const App: React.FC = () => {
 
         </ul>
 
-      </nav>
+      </nav> */}
       <>
         {message && <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-500">{message}</h1>}
         {hasClaimedNFT && address &&

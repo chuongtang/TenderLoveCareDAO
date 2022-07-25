@@ -20,8 +20,7 @@ const Navbar: React.FC<Props> = ( {address, connectWithMetamask, disconnectWalle
         <div className="flex items-center justify-end flex-1 md:justify-between">
           <nav className="hidden md:block" aria-labelledby="header-navigation">
             <h2 className="sr-only" id="header-navigation">Header navigation</h2>
-
-            <ul className="flex items-center gap- text-sm">
+            <ul className="flex items-center gap-6 text-sm">
               <li>
                 <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
                 <span className="text-shadow-lg text-stroke-md text-stroke-gray-500">Tender-Loving-Care DAO</span>
@@ -32,7 +31,7 @@ const Navbar: React.FC<Props> = ( {address, connectWithMetamask, disconnectWalle
           <div className="flex items-center gap-4">
             {address ?
                         <div className="sm:gap-4 sm:flex">
-                        <strong className="inline-flex items-center border border-gray-200 rounded relative px-2.5 py-1.5 text-xs font-medium m-4">
+                        <strong className="inline-flex items-center border border-gray-200 rounded relative p-1 text-xs font-medium m-2">
                             <span className="animate-ping w-2.5 h-2.5 bg-green-600/75 rounded-full absolute -top-1 -left-1"></span>
                             <span className="w-2.5 h-2.5 bg-green-600 rounded-full absolute -top-1 -left-1"></span>
                             <span className="text-gray-700"> Connected to: </span>
@@ -41,7 +40,7 @@ const Navbar: React.FC<Props> = ( {address, connectWithMetamask, disconnectWalle
                             </span>
                           </strong>
                           <button
-                            className="block px-5 py-2.5 bg-gradient-to-r from-teal-500 to-teal-700 hover:opacity-80 text-white text-sm font-medium rounded-md"
+                            className="block px-2 bg-gradient-to-r from-teal-500 to-teal-700 hover:opacity-80 text-white text-sm font-medium rounded-md"
                             onClick={disconnectWallet}
                           >
                             Disconnect Wallet
