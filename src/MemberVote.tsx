@@ -21,7 +21,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
   // Initialize our vote contract
   const vote = useVote("0x9393fb107aA2BD1BAe191E82422BC2Fc519fB728")!;
   // Initialize our token contract
-  const token = useToken("deployedToken")!;
+  const token = useToken(deployedToken)!;
 
   const [proposals, setProposals] = useState<any[]>([]);
   const [isVoting, setIsVoting] = useState<boolean>(false);
@@ -75,7 +75,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
 
   }, [hasClaimedNFT, proposals, address, vote]);
 
-  const voteProposal:React.FormEventHandler<HTMLElement>  = async (e) => {
+  const voteProposal: React.FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -153,6 +153,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
       }
     } catch (err) {
       console.error("failed to delegate tokens");
+      console.log(err)
     } finally {
       // in *either* case we need to set the isVoting state to false to enable the button again
       setIsVoting(false);
@@ -161,45 +162,46 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
 
 
   return (
-    <div>
-      <h1>{deployedContract}</h1>
-      <h1>{deployedToken}</h1>
-      <h1>{address} This is addressss </h1>
-      <h2>Active Proposals</h2>
+    <div className="text-center mx-auto">
+      <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-700">Active Proposals</h1>
       <form
-        onSubmit={voteProposal} >
+        onSubmit={voteProposal}
+         >
         {proposals.map((proposal) => (
-          <div key={proposal.proposalId} className="card">
-            <h5>{proposal.description}</h5>
-            <div>
-              {proposal.votes.map(({ type, label }:Vote) => (
-                <div key={type}>
-                  <input
-                    type="radio"
-                    id={proposal.proposalId + "-" + type}
-                    name={proposal.proposalId}
-                    value={type}
-                    //default the "abstain" vote to checked
-                    defaultChecked={type === 2}
-                  />
-                  <label htmlFor={proposal.proposalId + "-" + type}>
-                    {label}
+          <div key={proposal.proposalId} className="p-1 shadow-xl rounded-2xl bg-gradient-to-r from-green-600 to-indigo-200 mb-2">
+            <h5 className="text-md font-semibold text-white p-2">
+              {proposal.description}</h5>
+              {proposal.votes.map(({ type, label }: Vote) => (
+                <div key={type}
+                  className="inline-block text-white text-xs font-medium justify-end">
+                  <label htmlFor={proposal.proposalId + "-" + type} className="cursor-pointer p-1 justify-center">
+                    <input type="radio" name={proposal.proposalId} value={type} defaultChecked={type === 2} id={proposal.proposalId + "-" + type} className="sr-only peer" />
+
+                    <span className="inline-flex items-center justify-center h-8 text-xs font-medium border rounded-lg group peer-checked:bg-indigo-900 peer-checked:text-white p-4">
+                      {label}
+                    </span>
                   </label>
                 </div>
               ))}
-            </div>
           </div>
         ))}
-        <button disabled={isVoting || hasVoted} type="submit">
-          {isVoting
-            ? "Voting..."
-            : hasVoted
-              ? "You Already Voted"
-              : "Submit Votes"}
+        <button disabled={isVoting || hasVoted} type="submit"
+          className="relative inline-block px-8 py-3 overflow-hidden border border-green-600 rounded-lg group focus:outline-none focus:ring"
+        >
+           <span className="absolute inset-y-0 left-0 w-[2px] transition-all bg-green-600 group-hover:w-full group-active:bg-indigo-500"></span>
+          <span
+            className="relative text-sm font-medium text-green-600 transition-colors group-hover:text-white"
+          >
+            {isVoting
+              ? "Voting..."
+              : hasVoted
+                ? "You Already Voted"
+                : "Submit Votes"}
+          </span>
         </button>
         {!hasVoted && (
-          <small>
-            This will trigger multiple transactions that you will need to
+          <small className="text-xs italic m-2 font-light tracking-tight text-gray-500/50 overflow-ellipsis">
+            *This will trigger multiple transactions that you will need to
             sign.
           </small>
         )}

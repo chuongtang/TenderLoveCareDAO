@@ -203,9 +203,10 @@ const App: React.FC = () => {
           </>
         }
       </>
+      <div className="flex">
       {memberList && address && <MemberList memberList={memberList} /> }
-      <MemberVote deployedContract={deployedContract} deployedToken={deployedToken} hasClaimedNFT={hasClaimedNFT} address={address} />
-      
+      {address && <MemberVote deployedContract={deployedContract} deployedToken={deployedToken} hasClaimedNFT={hasClaimedNFT} address={address} />}
+        </div>
     </div>
   );
 }
