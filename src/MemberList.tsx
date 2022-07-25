@@ -15,8 +15,8 @@ const MemberList = ({ memberList }: Props) => {
     return str.substring(0, 6) + "..." + str.substring(str.length - 4);
   };
   return (
-    <div className="flex flex-col m-4">
-        <div className="text-center text-shadow-lg text-stroke-md text-stroke-green-500/50 text-lg">Member List</div>
+    <div className="flex flex-col w-1/2 mt-8">
+      <div className="text-center text-shadow-lg text-stroke-md text-stroke-green-500/50 text-lg">Member List</div>
       <div className="flex flex-col m-4 rounded-lg mx-auto shadow-xl overflow-hidden">
         <table className="divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-50 dark:bg-gray-700">

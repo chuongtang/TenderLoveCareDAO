@@ -168,7 +168,8 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
         onSubmit={voteProposal}
          >
         {proposals.map((proposal) => (
-          <div key={proposal.proposalId} className="p-1 shadow-xl rounded-2xl bg-gradient-to-r from-green-600 to-indigo-200 mb-2">
+          <div key={proposal.proposalId} 
+          className="p-1 shadow-xl rounded-2xl bg-gradient-to-r from-green-600 to-indigo-200 mb-2">
             <h5 className="text-md font-semibold text-white p-2">
               {proposal.description}</h5>
               {proposal.votes.map(({ type, label }: Vote) => (
@@ -185,8 +186,9 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
               ))}
           </div>
         ))}
+        <div className="flex flex-col">
         <button disabled={isVoting || hasVoted} type="submit"
-          className="relative inline-block px-8 py-3 overflow-hidden border border-green-600 rounded-lg group focus:outline-none focus:ring"
+          className="relative inline-block px-8 py-3 overflow-hidden border border-green-600 rounded-lg group focus:outline-none focus:ring w-1/2 mx-auto"
         >
            <span className="absolute inset-y-0 left-0 w-[2px] transition-all bg-green-600 group-hover:w-full group-active:bg-indigo-500"></span>
           <span
@@ -205,6 +207,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
             sign.
           </small>
         )}
+        </div>
       </form>
     </div>
   )

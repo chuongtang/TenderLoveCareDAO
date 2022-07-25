@@ -22,7 +22,7 @@ const App: React.FC = () => {
   const [memberTokenAmounts, setMemberTokenAmounts] = useState<Array<any>>([]);
   const [memberAddresses, setMemberAddresses] = useState<Array<string>>([]);
 
- 
+
 
   useEffect(() => {
     const checkBalance = async (): Promise<void> => {
@@ -74,9 +74,9 @@ const App: React.FC = () => {
       try {
         const memberAddresses = await editionDrop.history.getAllClaimerAddresses(0);
         setMemberAddresses(memberAddresses);
-        console.log('\x1b[34m%s\x1b[0m',"🚀 Members addresses", memberAddresses);
+        console.log('\x1b[34m%s\x1b[0m', "🚀 Members addresses", memberAddresses);
       } catch (error) {
-        console.error('\x1b[31m%s\x1b[0m',"failed to get member list", error);
+        console.error('\x1b[31m%s\x1b[0m', "failed to get member list", error);
       }
 
     };
@@ -93,9 +93,9 @@ const App: React.FC = () => {
       try {
         const amounts = await token.history.getAllHolderBalances();
         setMemberTokenAmounts(amounts);
-        console.log('\x1b[32m%s\x1b[0m',"👜 Amounts", amounts);
+        console.log('\x1b[32m%s\x1b[0m', "👜 Amounts", amounts);
       } catch (error) {
-        console.error('\x1b[31m%s\x1b[0m',"failed to get member balances", error);
+        console.error('\x1b[31m%s\x1b[0m', "failed to get member balances", error);
       }
     };
     getAllBalances();
@@ -203,10 +203,10 @@ const App: React.FC = () => {
           </>
         }
       </>
-      <div className="flex">
-      {memberList && address && <MemberList memberList={memberList} /> }
-      {address && <MemberVote deployedContract={deployedContract} deployedToken={deployedToken} hasClaimedNFT={hasClaimedNFT} address={address} />}
-        </div>
+      <div className="flex sm:grid sm:grid-cols-2">
+        {memberList && address && <MemberList memberList={memberList} />}
+        {address && <MemberVote deployedContract={deployedContract} deployedToken={deployedToken} hasClaimedNFT={hasClaimedNFT} address={address} />}
+      </div>
     </div>
   );
 }
