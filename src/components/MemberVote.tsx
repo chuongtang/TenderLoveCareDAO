@@ -162,7 +162,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
 
 
   return (
-    <div className="text-center mx-auto">
+    <div className="text-center md:7/12 lg:w-6/12">
       <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-700">Active Proposals</h1>
       <form
         onSubmit={voteProposal}

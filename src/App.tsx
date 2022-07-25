@@ -1,13 +1,14 @@
 import { useAddress, useDisconnect, useMetamask, useEditionDrop, useToken } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
 import AppLogo from '../src/assets/DAOlogo3.svg'
-import MemberList from './MemberList';
-import MemberVote from './MemberVote';
+import MemberList from './components/MemberList';
+import MemberVote from './components/MemberVote';
+import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
-  const address = useAddress()!;
-  const connectWithMetamask = useMetamask();
-  const disconnectWallet = useDisconnect();
+  const address: string = useAddress()!;
+  const connectWithMetamask = useMetamask()!;
+  const disconnectWallet = useDisconnect()!;
   const [message, setMessage] = useState<string>('');
   const deployedContract = "0x893D52CBE48E6A4a4BB4157b64648364e38A7d96";
   const deployedToken = "0xdd899bC1C811CDB913D94c091b8F56339Fd69afa"
@@ -114,9 +115,10 @@ const App: React.FC = () => {
       }
     });
   }, [memberAddresses, memberTokenAmounts]);
-  console.log(memberList)
+
   return (
     <div className="p-3">
+      <Navbar address={address} disconnectWallet={disconnectWallet} connectWithMetamask={connectWithMetamask} />
       <nav className="flex items-center justify-between p-4 mx-auto">
         <a
           className="inline-flex items-center justify-center h-10 rounded-lg"
@@ -203,7 +205,7 @@ const App: React.FC = () => {
           </>
         }
       </>
-      <div className="flex sm:grid sm:grid-cols-2">
+      <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
         {memberList && address && <MemberList memberList={memberList} />}
         {address && <MemberVote deployedContract={deployedContract} deployedToken={deployedToken} hasClaimedNFT={hasClaimedNFT} address={address} />}
       </div>

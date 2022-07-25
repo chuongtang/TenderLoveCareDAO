@@ -1,5 +1,4 @@
 import React from 'react'
-import '../src/App.css'
 
 interface holder {
   address: string;
@@ -15,7 +14,7 @@ const MemberList = ({ memberList }: Props) => {
     return str.substring(0, 6) + "..." + str.substring(str.length - 4);
   };
   return (
-    <div className="flex flex-col w-1/2 mt-8">
+    <div className="md:5/12 lg:w-5/12">
       <div className="text-center text-shadow-lg text-stroke-md text-stroke-green-500/50 text-lg">Member List</div>
       <div className="flex flex-col m-4 rounded-lg mx-auto shadow-xl overflow-hidden">
         <table className="divide-y divide-gray-200 dark:divide-gray-700">
