@@ -14,7 +14,7 @@ const MemberList = ({ memberList }: Props) => {
     return str.substring(0, 6) + "..." + str.substring(str.length - 4);
   };
   return (
-    <div className="md:5/12 lg:w-5/12">
+    <div className="md:5/12 lg:w-5/12 mx-auto">
       <div className="text-center text-shadow-lg text-stroke-md text-stroke-green-500/50 text-lg">Member List</div>
       <div className="flex flex-col m-4 rounded-lg mx-auto shadow-xl overflow-hidden">
         <table className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -30,7 +30,7 @@ const MemberList = ({ memberList }: Props) => {
               return (
                 <tr key={member.address}>
                   <td className="p-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 text-center">{shortenAddress(member.address)}</td>
-                  <td className="p-4 whitespace-nowrap text-right text-sm text-gray-800 dark:text-gray-200">{member.tokenAmount}</td>
+                  <td className="p-4 whitespace-nowrap text-right text-sm text-gray-800 dark:text-gray-200">{~~(member.tokenAmount)}</td>
                 </tr>
               );
             })}

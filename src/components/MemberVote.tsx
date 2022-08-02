@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useToken, useVote } from '@thirdweb-dev/react';
 import { AddressZero } from "@ethersproject/constants";
 
@@ -17,7 +17,7 @@ interface Vote {
 
 }
 
-const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }: Props) => {
+const MemberVote = ({ deployedToken, hasClaimedNFT, address }: Props) => {
   // Initialize our vote contract
   const vote = useVote("0x9393fb107aA2BD1BAe191E82422BC2Fc519fB728")!;
   // Initialize our token contract
@@ -26,6 +26,9 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
   const [proposals, setProposals] = useState<any[]>([]);
   const [isVoting, setIsVoting] = useState<boolean>(false);
   const [hasVoted, setHasVoted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const renderLoader = () => <p className="animate-ping text-sm text-yellow-500/50 text-stroke-md">Loading...</p>;
 
   // Retrieve all our existing proposals from the contract.
   useEffect(() => {
@@ -35,6 +38,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
 
     // A simple call to vote.getAll() to grab the proposals.
     const getAllProposals = async () => {
+      setLoading(true);
       try {
         const proposals = await vote.getAll();
         setProposals(proposals);
@@ -62,6 +66,7 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
       try {
         const hasVoted = await vote.hasVoted(proposals[0].proposalId, address);
         setHasVoted(hasVoted);
+        setLoading(false)
         if (hasVoted) {
           console.log("🥵 User has already voted");
         } else {
@@ -162,16 +167,17 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
 
 
   return (
-    <div className="text-center md:7/12 lg:w-6/12">
+    <div className="text-center md:7/12 lg:w-6/12 mx-auto">
       <h1 className="mb-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-700">Active Proposals</h1>
-      <form
-        onSubmit={voteProposal}
-         >
-        {proposals.map((proposal) => (
-          <div key={proposal.proposalId} 
-          className="p-1 shadow-xl rounded-2xl bg-gradient-to-r from-green-600 to-indigo-200 mb-2">
-            <h5 className="text-md font-semibold text-white p-2">
-              {proposal.description}</h5>
+      {loading ? <p className="animate-ping text-sm text-yellow-500/50 text-stroke-md">Loading...</p> :
+        <form
+          onSubmit={voteProposal}
+        >
+          {proposals.map((proposal) => (
+            <div key={proposal.proposalId}
+              className="p-1 shadow-xl rounded-2xl bg-gradient-to-r from-green-600 to-indigo-200 mb-2">
+              <h5 className="text-md font-semibold text-white p-2">
+                {proposal.description}</h5>
               {proposal.votes.map(({ type, label }: Vote) => (
                 <div key={type}
                   className="inline-block text-white text-xs font-medium justify-end">
@@ -184,31 +190,33 @@ const MemberVote = ({ deployedContract, deployedToken, hasClaimedNFT, address }:
                   </label>
                 </div>
               ))}
+            </div>
+          ))}
+          <div className="flex flex-col">
+            <button disabled={isVoting || hasVoted || !hasClaimedNFT} type="submit"
+              className="relative inline-block px-8 py-3 overflow-hidden border border-green-600 rounded-lg group focus:outline-none focus:ring w-1/2 mx-auto"
+            >
+              <span className="absolute inset-y-0 left-0 w-[2px] transition-all bg-green-600 group-hover:w-full group-active:bg-indigo-500"></span>
+              {hasClaimedNFT?<span
+                className="relative text-sm font-medium text-green-600 transition-colors group-hover:text-white"
+              >
+                {isVoting
+                  ? "Voting..."
+                  : hasVoted
+                    ? "You Already Voted"
+                    : "Submit Votes"}
+              </span>:<p>pls mint to VOTE</p>}
+              
+            </button>
+            {!hasVoted && (
+              <small className="text-xs italic m-2 font-light tracking-tight text-gray-500/50 overflow-ellipsis">
+                *This will trigger multiple transactions that you will need to
+                sign.
+              </small>
+            )}
           </div>
-        ))}
-        <div className="flex flex-col">
-        <button disabled={isVoting || hasVoted} type="submit"
-          className="relative inline-block px-8 py-3 overflow-hidden border border-green-600 rounded-lg group focus:outline-none focus:ring w-1/2 mx-auto"
-        >
-           <span className="absolute inset-y-0 left-0 w-[2px] transition-all bg-green-600 group-hover:w-full group-active:bg-indigo-500"></span>
-          <span
-            className="relative text-sm font-medium text-green-600 transition-colors group-hover:text-white"
-          >
-            {isVoting
-              ? "Voting..."
-              : hasVoted
-                ? "You Already Voted"
-                : "Submit Votes"}
-          </span>
-        </button>
-        {!hasVoted && (
-          <small className="text-xs italic m-2 font-light tracking-tight text-gray-500/50 overflow-ellipsis">
-            *This will trigger multiple transactions that you will need to
-            sign.
-          </small>
-        )}
-        </div>
-      </form>
+        </form>
+      }
     </div>
   )
 }

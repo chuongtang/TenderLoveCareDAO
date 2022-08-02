@@ -58,7 +58,7 @@ const Navbar: React.FC<Props> = ( {address, connectWithMetamask, disconnectWalle
             </div>
 
             }<a
-            className="hidden sm:block px-5 py-2.5 text-sm font-medium text-teal-600 hover:text-teal-900 hover:bg-gray-200 hover:rounded-lg"
+            className="hidden sm:block px-5 py-2.5 text-xs font-medium text-teal-600 hover:text-teal-900 hover:bg-gray-200 hover:rounded-lg"
             href="https://ethereum.org/en/dao/#what-are-daos"
             target="_blank"
           >
