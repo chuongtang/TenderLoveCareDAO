@@ -5,9 +5,9 @@ a DAO for Tender-Loving-Care people that receive $❤**TLC** whenever they do ni
 
 **ERC-20 Governance Token Address** : 0xdd899bC1C811CDB913D94c091b8F56339Fd69afa
 
-Built with [Thirdweb](https://portal.thirdweb.com/typescript/sdk.thirdwebsdk) and [Buildspace](https://buildspace.so/p/build-dao-with-javascript)
+Built with [Thirdweb](https://portal.thirdweb.com/typescript/sdk.thirdwebsdk) <img width="20"  src="https://chuongtang.github.io/sourceStore/logos/Thirdweb.jpg" alt="Thirdweb logo" loading="lazy"/> and  [Buildspace](https://buildspace.so/p/build-dao-with-javascript)<img width="20" src="https://chuongtang.github.io/sourceStore/smallLogos/BuildSpace.jpg" alt="Buildspace logo" loading="lazy" />
 
-## Getting Started
+## Getting Started from thirdweb Template
 
 Create a project using this example:
 

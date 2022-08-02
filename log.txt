@@ -65,5 +65,24 @@ Successfully gave vote contract permissions to act on token contract
 ✅ Successfully created proposal to reward ourselves from the treasury, let's hope people vote for it!
 
 
-
+** Output on Node scripts/11-revoke-roles.js
+👀 Roles that exist right now: {
+  admin: [ '0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F' ],
+  minter: [
+    '0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F',
+    '0x9393fb107aA2BD1BAe191E82422BC2Fc519fB728'
+  ],
+  transfer: [
+    '0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F',
+    '0x0000000000000000000000000000000000000000'
+  ]
+}
+🎉 Roles after revoking ourselves {
+  admin: [],
+  minter: [],
+  transfer: [
+    '0xfd86E8d4121dd1D7CE9A3D565228dC5eeBeB003F',
+    '0x0000000000000000000000000000000000000000'
+  ]
+}
 
