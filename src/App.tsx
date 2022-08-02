@@ -19,7 +19,6 @@ const App: React.FC = () => {
   const network = useNetwork()!;
   const chainName = network[0]?.data?.chain?.name!;
   console.log(chainName)
-  // const chainId = useChainId();
   // Initialize our editionDrop contract
   const editionDrop = useEditionDrop(deployedContract)!;
   // Initialize our token contract
@@ -129,9 +128,10 @@ const App: React.FC = () => {
     <div className="p-3 m-1">
       <Navbar address={address} disconnectWallet={disconnectWallet} connectWithMetamask={connectWithMetamask} />
       {!address ? <IntroPage /> :
+        (chainName!== "Rinkeby")?<NetworkCheck/> :
         <div>
           <>
-          {address && (chainName!== "Rinkeby")&& <NetworkCheck/>}
+          {/* {address && (chainName!== "Rinkeby")&& <NetworkCheck/>} */}
             {message && <h1 className="my-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-500">{message}</h1>}
             {hasClaimedNFT &&
               <a

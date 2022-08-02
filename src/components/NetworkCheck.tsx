@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNetwork, ChainId } from "@thirdweb-dev/react";
+import '../App.css'
 
 const NetworkCheck = () => {
+  const [, switchNetwork] = useNetwork()!;
   return (
-    <div className="p-8 bg-white border border-blue-100 shadow-lg rounded-2xl" role="alert">
+    <div className="m-4 p-8 bg-white border border-blue-100 shadow-lg rounded-2xl" role="alert">
       <div className="items-center sm:flex">
         <span className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-white bg-blue-400 rounded-full">
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -23,21 +26,13 @@ const NetworkCheck = () => {
       </p>
 
       <div className="mt-6 sm:flex">
-        <a
-          className="inline-block w-full px-5 py-3 text-sm font-semibold text-center text-white bg-blue-500 rounded-lg sm:w-auto"
-          href="https://www.youtube.com/watch?v=TONMGpiK0jM&t=21s"
-          target="_blank"
+        <button
+          className="gradientBorder text-stroke-gray-500 text-stroke-md"
+          // @ts-ignore
+          onClick={() => switchNetwork(ChainId.Rinkeby)}
         >
-          Demo video
-        </a>
-
-        <a
-          className="inline-block w-full px-5 py-3 mt-3 text-sm font-semibold text-center text-gray-500 rounded-lg bg-gray-50 sm:mt-0 sm:ml-3 sm:w-auto"
-          href="https://rinkebyfaucet.com/"
-          target="_blank"
-        >
-          Get free Rinkeby ETH 
-        </a>
+          Switch Now
+        </button>
       </div>
     </div>
 

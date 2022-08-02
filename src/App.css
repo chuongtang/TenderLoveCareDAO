@@ -1,5 +1,23 @@
 .gradientBorder{
-  border:  solid 6px;
-  border-image-source: linear-gradient(to bottom right, #ebbbe0, #6638f0);
-  /* border-image-slice: 4; */
+  /* width: 200px; */
+  /* height: 100px; */
+  padding: 0.5rem;
+  margin: auto;
+  border: 0.35rem solid;
+  border-image: linear-gradient(45deg, gold, deeppink) 1;
+  clip-path: inset(0px round 10px);
+  animation: huerotate 6s infinite linear;
+  filter: hue-rotate(360deg);
+}
+
+@keyframes huerotate {
+  0% {
+      filter: hue-rotate(0deg);
+  }
+  100% {
+      filter: hue-rorate(360deg);
+  }
+}
+.gradientBorder:hover{
+  background-color: yellow;
 }
