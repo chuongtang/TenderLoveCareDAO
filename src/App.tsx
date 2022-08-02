@@ -1,7 +1,10 @@
-import { useAddress, useDisconnect, useMetamask, useEditionDrop, useToken } from '@thirdweb-dev/react';
+import { useAddress, useDisconnect, useMetamask, useEditionDrop, useToken, useNetwork, ChainId   } from '@thirdweb-dev/react';
+// import { ChainId } from '@thirdweb-dev/sdk';
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 const MemberList = lazy(() => import('./components/MemberList'));
 const MemberVote = lazy(() => import('./components/MemberVote'));
+const NetworkCheck = lazy(() => import('./components/NetworkCheck'));
+
 import Navbar from './components/Navbar';
 import IntroPage from './components/IntroPage';
 
@@ -13,6 +16,10 @@ const App: React.FC = () => {
   const deployedContract = "0x893D52CBE48E6A4a4BB4157b64648364e38A7d96";
   const deployedToken = "0xdd899bC1C811CDB913D94c091b8F56339Fd69afa"
 
+  const network = useNetwork()!;
+  const chainName = network[0]?.data?.chain?.name!;
+  console.log(chainName)
+  // const chainId = useChainId();
   // Initialize our editionDrop contract
   const editionDrop = useEditionDrop(deployedContract)!;
   // Initialize our token contract
@@ -116,6 +123,7 @@ const App: React.FC = () => {
       }
     });
   }, [memberAddresses, memberTokenAmounts]);
+  
 
   return (
     <div className="p-3 m-1">
@@ -123,6 +131,7 @@ const App: React.FC = () => {
       {!address ? <IntroPage /> :
         <div>
           <>
+          {address && (chainName!== "Rinkeby")&& <NetworkCheck/>}
             {message && <h1 className="my-4 text-gray-500 text-shadow-lg text-stroke-sm text-stroke-green-500">{message}</h1>}
             {hasClaimedNFT &&
               <a
